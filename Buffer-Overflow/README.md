@@ -21,14 +21,14 @@ Note: For this walkthrough I'll be using Virtual Box. So you can install the vic
 Open your Windows machine then open you Kali Linux machine. On your Windows machine run Immunity Debugger as administrator and run vulnserver as administrator also. Go to Immunity debugger and on the top left click on the file menu and attach vulnserver to it.Ensure Immnunity Debugger is running by clicking on the red play button. We are then going to connect to vulnserver using our kali machine. Fire up a terminal and run ```nc -nv your_victim_machine_ip 9999```. Enter the command HELP to see available commands. This should look like this 
 
 
-![connection](/assets/Screenshot_2022-09-18_08_08_54.png)
+![connection](Buffer-Overflow/screenshots/Screenshot_2022-09-18_08_08_54.png)
 
 As we can see vulnserver server provides us with a couple of commands so what we are going to do next is attempt to find which one is vulnerable.
 
 1. **Spiking**
 
 This is a method that we are going to use to find vulnerable parts of vulnserver. We are going to use the ```generic_send_tcp``` tool to assist us in spiking.  The usage of the tool is as shown ```generic_send_tcp host port spike_script SKIPVAR SKIPSTR```. The host will be the IP address of victim machine. The port is 9999 by default. Ideally in Spiking you spike multiple commands. Here we are going to spike the ```TRUN``` command since I already know it's a vulnerable one. I have provided the spike script for the TRUN command. When you run that command you will notice that Immunity Debugger immediately starts blinking. Your vulnserver has actually crashed. We see an access violation as shown on Immunity Debugger which means that ```TRUN``` is actually vulnerable. If we look at the registers we can pick out some information. 
-![registers after spiking](assets/spike.png).
+![registers after spiking](Buffer-Overflow/screenshots/spike.png).
 
  We sent TRUN command with a bunch of As. Imagine these As going into a buffer space. Normally, the As should fill in the buffer space, but as we see they have overflown and gone over the ESP, EBP and EIP registers. If we can control the EIP we can point it to malicious code so lets go to fuzzing as the next step. 
 
@@ -37,7 +37,7 @@ This is a method that we are going to use to find vulnerable parts of vulnserver
 Similar to spiking but fuzzing is a method that we are going to use to send a bunch of characters to the vulnerable program and see whether we can break it. Here we will be using a Python script. I have provided the script. Remember to restart vulnserver and immunity debugger and reattach vulnserver to immunity debugger any time you crash vulnserver. Make sure everything is running. After running your fuzzing script, check Immunity debugger and you will see that it displays access violation and stops after some seconds. This means we have successfully fuzzed the TRUN command.
 Hit ```ctrl C ``` to cancel at check the number of bytes it took to crash the program. This varies but you should see something like this.
 
-![fuzzing](assets/Screenshot_2022-09-18_12-06-54.png)
+![fuzzing](Buffer-Overflow/screenshots/Screenshot_2022-09-18_12-06-54.png)
 
 3. Finding the offset
 If we do break our program we want to know at what point the program crashed
