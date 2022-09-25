@@ -55,7 +55,9 @@ This means at 2387 bytes we can control the EIP.
 
 
 4. Overwriting the EIP
-We are going to use the Offset to overwrite the EIP
+We are going to use the Offset to overwrite the EIP. This shouldn't be a long step. We are going to edit the last script that we wrote(find_offset.py). I have named the new script as ``overwrite_eip.py``. Modify yours accordingly and run the script. Observe Immunity Debugger and you will notice that it has the value ``42424242`` which stands for 4Bs.
+![overwriting_the_eip](/screenshots/Screenshot%20(6).png)
+ This means that we can control the EIP. From here it's pretty smooth sailing.
 
 5. Finding Bad Characters 
 Once we have the EIP controlled we want to have a few house clean up things. One is finding bad characters. This doesn't have to make sense right now.
