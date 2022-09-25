@@ -45,7 +45,7 @@ Hit ```ctrl C ``` to cancel at check the number of bytes it took to crash the pr
 
 
 If we do break our program we want to know at what point the program crashed. Luckily there is a tool known as ```pattern_create.rb``` provided by metasploit framework for this job. Run the following command on the Kali Linux terminal ```/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 3000```. It's going to generate some code that we copy and put on our script. I have provided the modified script. When we run the script and check our Immunity Debugger we will see a value at the EIP. It should look like this:
-![pic5](/Buffer-Overflow/screenshots/Screenshot(5).png)
+![pic5](/Buffer-Overflow/screenshots/Screenshot%20(5).png)
 This value is what we are interested in.
 
 Copy the value and run ```/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -l 3000 -q yourvalue```
