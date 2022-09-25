@@ -37,7 +37,7 @@ This is a method that we are going to use to find vulnerable parts of vulnserver
 Similar to spiking but fuzzing is a method that we are going to use to send a bunch of characters to the vulnerable program and see whether we can break it. Here we will be using a Python script. I have provided the script. Remember to restart vulnserver and immunity debugger and reattach vulnserver to immunity debugger any time you crash vulnserver. Make sure everything is running. After running your fuzzing script, check Immunity debugger and you will see that it displays access violation and stops after some seconds. This means we have successfully fuzzed the TRUN command.
 Hit ```ctrl C ``` to cancel at check the number of bytes it took to crash the program. This varies but you should see something like this.
 
-![fuzzing](/screenshots/Screenshot_2022-09-18_12-06-54.png)
+![fuzzing](/Buffer-Overflow/screenshots/Screenshot_2022-09-18_12-06-54.png)
 
 3. **Finding the offset**
 
@@ -56,7 +56,7 @@ This means at 2387 bytes we can control the EIP.
 
 4. Overwriting the EIP
 We are going to use the Offset to overwrite the EIP. This shouldn't be a long step. We are going to edit the last script that we wrote(find_offset.py). I have named the new script as ``overwrite_eip.py``. Modify yours accordingly and run the script. Observe Immunity Debugger and you will notice that it has the value ``42424242`` which stands for 4Bs.
-![overwriting_the_eip](/Buffer_Overflow/screenshots/Screenshot%20(6).png)
+![overwriting_the_eip](/Buffer-Overflow/screenshots/Screenshot%20(6).png)
  This means that we can control the EIP. From here it's pretty smooth sailing.
 
 5. Finding Bad Characters 
