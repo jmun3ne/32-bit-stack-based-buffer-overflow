@@ -41,9 +41,6 @@ Hit ```ctrl C ``` to cancel at check the number of bytes it took to crash the pr
 
 3. **Finding the offset**
 
-
-
-
 If we do break our program we want to know at what point the program crashed. Luckily there is a tool known as ```pattern_create.rb``` provided by metasploit framework for this job. Run the following command on the Kali Linux terminal ```/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 3000```. It's going to generate some code that we copy and put on our script. I have provided the modified script. When we run the script and check our Immunity Debugger we will see a value at the EIP. It should look like this:
 ![pic5](/Buffer-Overflow/screenshots/Screenshot%20(5).png)
 This value is what we are interested in.
@@ -54,18 +51,20 @@ It should output something like this
 This means at 2387 bytes we can control the EIP.
 
 
-4. Overwriting the EIP
+4. **Overwriting the EIP**
+
 We are going to use the Offset to overwrite the EIP. This shouldn't be a long step. We are going to edit the last script that we wrote(find_offset.py). I have named the new script as ``overwrite_eip.py``. Modify yours accordingly and run the script. Observe Immunity Debugger and you will notice that it has the value ``42424242`` which stands for 4Bs.
 ![overwriting_the_eip](/Buffer-Overflow/screenshots/Screenshot%20(6).png)
  This means that we can control the EIP. From here it's pretty smooth sailing.
 
-5. Finding Bad Characters 
+6. **Finding Bad Characters** 
 Once we have the EIP controlled we want to have a few house clean up things. One is finding bad characters. This doesn't have to make sense right now.
 
-6. Finding the right module
-This is also anoteher house clean up method.
+7. **Finding the right module**
+This is also another house clean up method.
 
-7. Generating the shellcode
+8. **Generating the shellcode**
+
 We can now generate the shellcode. This malicious payload that is going to allow us to gain a reverse shell. We will point the EIP to the malicious shellcode
-8. Root!
+10. **Root!**
 Finally we are going to gain the root.
