@@ -5,7 +5,7 @@ import socket
 from time import sleep
 
 IP ='10.6.51.255'
-port = 9999
+PORT = 9999
 
 buffer ="A" * 100
 
