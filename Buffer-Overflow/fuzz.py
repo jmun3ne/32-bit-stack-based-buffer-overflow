@@ -9,7 +9,6 @@ PORT = 9999
 
 buffer ="A" * 100
 
-
 while True:
         try:
                s =socket.socket(socket.AF_INET,socket.SOCK_STREAM)
